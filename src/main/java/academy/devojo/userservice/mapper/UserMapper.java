@@ -1,8 +1,11 @@
 package academy.devojo.userservice.mapper;
 
 import academy.devojo.userservice.domain.User;
+import academy.devojo.userservice.request.UserPostRequest;
 import academy.devojo.userservice.response.UserGetResponse;
+import academy.devojo.userservice.response.UserPostResponse;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.factory.Mappers;
 
@@ -15,6 +18,11 @@ public interface UserMapper {
 
     UserGetResponse toUserGetResponse(User user);
     List<UserGetResponse> toUserGetResponseList(List<User> users);
+
+    @Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())")
+    @Mapping(target = "id", expression = "java(java.util.concurrent.ThreadLocalRandom.current().nextLong(100_000))")
+    User toUser(UserPostRequest request);
+    UserPostResponse toUserPostResponse(User user);
 
 
 }
