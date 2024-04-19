@@ -26,8 +26,10 @@ public class UserService {
         return userHardCodedRepository.save(user);
     }
 
-    public Optional<User> findById(Long id) {
-        return userHardCodedRepository.findById(id);
+    public User findById(Long id) {
+        return userHardCodedRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND,
+                        "User not found by id: " + id));
     }
 
     public void deleteById(Long id) {

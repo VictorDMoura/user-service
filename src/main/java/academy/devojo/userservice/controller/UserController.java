@@ -3,6 +3,7 @@ package academy.devojo.userservice.controller;
 
 import academy.devojo.userservice.mapper.UserMapper;
 import academy.devojo.userservice.request.UserPostRequest;
+import academy.devojo.userservice.request.UserPutRequest;
 import academy.devojo.userservice.response.UserGetResponse;
 import academy.devojo.userservice.response.UserPostResponse;
 import academy.devojo.userservice.service.UserService;
@@ -42,7 +43,7 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserGetResponse> findById(@PathVariable Long id) {
         log.info("Request received to find user by id '{}'", id);
-        var user = userService.findById(id).get();
+        var user = userService.findById(id);
         return ResponseEntity.ok(mapper.toUserGetResponse(user));
     }
 
@@ -62,7 +63,7 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> update(@RequestBody UserPostRequest request) {
+    public ResponseEntity<Void> update(@RequestBody UserPutRequest request) {
         log.info("Request received to update user '{}'", request);
         var user = mapper.toUser(request);
         userService.update(user);

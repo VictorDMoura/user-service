@@ -79,7 +79,7 @@ class UserServiceTest {
 
         var userFound = userService.findById(id);
 
-        Assertions.assertThat(userFound).isPresent().get().isEqualTo(user);
+        Assertions.assertThat(userFound).isEqualTo(user);
     }
 
     @Test
